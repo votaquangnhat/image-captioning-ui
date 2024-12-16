@@ -1,7 +1,8 @@
 import './App.css'
 import '@mantine/core/styles.css';
-import { MantineProvider } from '@mantine/core';
+import { Tabs, MantineProvider, TabsList } from '@mantine/core';
 import UploadImage from './components/UploadImage';
+import Evaluation from './components/Evaluation';
 
 function App() {
 
@@ -12,7 +13,14 @@ function App() {
         <p>Upload an image or take a picture in order to generate a caption.</p>
       </header>
       <MantineProvider>
-        <UploadImage />
+        <Tabs variant="outline" defaultValue="generating">
+          <Tabs.List grow>
+            <Tabs.Tab value="generating">Generation</Tabs.Tab>
+            <Tabs.Tab value="evaluation">Evaluation</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="generating"><UploadImage /></Tabs.Panel>
+          <Tabs.Panel value='evaluation'><Evaluation /></Tabs.Panel>
+        </Tabs>
       </MantineProvider>
     </div>
   )

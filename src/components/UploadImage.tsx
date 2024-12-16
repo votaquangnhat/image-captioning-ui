@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useState, useRef } from 'react';
-import { Card, Loader, ComboboxItem, FileButton, Paper, Image, Button, Group, Text, Stack, Select} from '@mantine/core';
+import { Tabs, Card, Loader, ComboboxItem, FileButton, Paper, Image, Button, Group, Text, Stack, Select} from '@mantine/core';
 
 //const API_BASE_URL = 'http://localhost:5000';
-const API_BASE_URL = 'https://vtqn-image-captioning-be.fayedark.com'
+//const API_BASE_URL = 'https://vtqn-image-captioning-be.fayedark.com'
+const API_BASE_URL = 'https://image-captioning-be.votaquangnhat.com'
 
 function UploadImage() {
   const [image, setImage] = useState<File | null>(null);
@@ -13,11 +14,13 @@ function UploadImage() {
   const [captionbuttontext, setCaptionbuttontext] = useState<string | null>("Generate Caption");
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedModel, setSelectedModel] = useState<ComboboxItem | null>(null);
+  const [data, setData] = useState<string | null>(null);
 
   const modelOptions = [
     { value: "dumb", label: "Dumb Model" },
-    { value: "infer", label: "Transformer Model" },
-    { value: "pre_infer", label: "Transformer Model Pre-Infer" },
+    { value: "trans", label: "Transformer Model" },
+    { value: "transpre", label: "Transformer Model Pre" },
+    { value: "cnnlstm", label: "VGG16 + LSTM" },
   ];
 
   const handleImageChange = (image: File | null) => {
@@ -53,6 +56,7 @@ function UploadImage() {
             headers: { 'Content-Type': 'multipart/form-data' },
           });
           setCaption(response.data.caption);
+          setData(JSON.stringify(response.data, null, 2));
         } catch (err) {
           setCaption("Failed to generate caption. Please try again.");
         } finally {
@@ -105,9 +109,26 @@ function UploadImage() {
               w="auto"
               fit="contain"
             />
-            <Text>Caption:</Text>
+
             <Paper shadow="lg" withBorder p="xl">
-              <Text>{caption}</Text>
+              <Tabs orientation="vertical" defaultValue="caption">
+                <Tabs.List>
+                  <Tabs.Tab value="caption" >
+                    Caption
+                  </Tabs.Tab>
+                  <Tabs.Tab value="json" >
+                    Json
+                  </Tabs.Tab>
+                </Tabs.List>
+
+                <Tabs.Panel value="caption">
+                  {caption}
+                </Tabs.Panel>
+
+                <Tabs.Panel value="json">
+                  {data}
+                </Tabs.Panel>
+              </Tabs>
             </Paper>
           </Stack>
         )}
