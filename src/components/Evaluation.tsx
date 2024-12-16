@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Text } from "@mantine/core";
+import { Card } from "@mantine/core";
 import {
   Chart as ChartJS,
   RadialLinearScale,

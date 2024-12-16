@@ -1,6 +1,6 @@
 import './App.css'
 import '@mantine/core/styles.css';
-import { Tabs, MantineProvider, TabsList } from '@mantine/core';
+import { Tabs, MantineProvider } from '@mantine/core';
 import UploadImage from './components/UploadImage';
 import Evaluation from './components/Evaluation';
 

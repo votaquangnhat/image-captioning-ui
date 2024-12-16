@@ -6,6 +6,7 @@ import { Tabs, Card, Loader, ComboboxItem, FileButton, Paper, Image, Button, Gro
 //const API_BASE_URL = 'https://vtqn-image-captioning-be.fayedark.com'
 const API_BASE_URL = 'https://image-captioning-be.votaquangnhat.com'
 
+
 function UploadImage() {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
